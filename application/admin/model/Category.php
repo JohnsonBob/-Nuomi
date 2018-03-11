@@ -41,17 +41,17 @@ class Category extends Model
         return $result;
     }
 
-    public function getFirstCategory(){
+    public function getFirstCategory($parentId = 0){
         $data = [
-            'parent_id' => 0,
+            'parent_id' => $parentId,
             'status' =>['status','neq',-1],
         ];
         //dump($data);die();
         $order = [
             'id' => 'desc',
         ];
-        $result = $this->where($data)->order($order)->select();
-        echo $this->getLastSql();
+        $result = $this->where($data)->order($order)->paginate(2);
+       // echo $this->getLastSql();
         return $result;
     }
 }

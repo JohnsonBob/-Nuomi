@@ -11,7 +11,11 @@ class Category extends Base
     }
     public function index()
     {
-        $categorys = $this->objmodel->getFirstCategory();
+        if(input('parent_id')){
+            $categorys = $this->objmodel->getFirstCategory(input('parent_id'));
+        }else{
+            $categorys = $this->objmodel->getFirstCategory();
+        }
         $this->assign('categorys',$categorys);
         return $this->fetch();
     }

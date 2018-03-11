@@ -27,11 +27,26 @@ class Category extends Model
     /**
      *获取一级分类
      */
+    public function getNormalFirstCategory(){
+        $data = [
+            'parent_id' => 0,
+            'status' =>1,
+        ];
+        //dump($data);die();
+        $order = [
+            'id' => 'desc',
+        ];
+        $result = $this->where($data)->order($order)->select();
+        //echo $this->getLastSql();
+        return $result;
+    }
+
     public function getFirstCategory(){
         $data = [
             'parent_id' => 0,
-            'status' =>['neq',-1],
+            'status' =>['status','neq',-1],
         ];
+        //dump($data);die();
         $order = [
             'id' => 'desc',
         ];

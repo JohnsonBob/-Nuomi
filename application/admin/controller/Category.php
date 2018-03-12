@@ -29,17 +29,21 @@ class Category extends Base
 
     public function save()
     {
-        $data = input('post.');
-        if($data){
-            var_dump($data);die();
+        //判断是否是post方式提交
+        if(!$this->request->isPost()){
+            $this->error('请求失败！');
         }
-//       dump($data);die();
         //数据校验
+        $data = input('post.');
+//       dump($data);die();
         $validate = validate('Category');
-        if(!$validate->check($data)){
+        if(!$validate->scene('add')->check($data)){
             $this->error($validate->getError());
         }
-        $data['status'] = 1;
+        //$data['status'] = $status;
+        if(!empty($data['id'])){
+            $this->update($data);
+        }
         if($this->objmodel->addClassification($data)){
             $this->success('生活服务类添加成功');
         }else{
@@ -66,5 +70,19 @@ class Category extends Base
             'categoryValue' => $categoryValue,
         ]);
         return $this->fetch();
+    }
+
+    /**
+     * @param $data
+     * 更新分类
+     */
+    public function update($data){
+        if(empty($data) || !is_array($data)){
+            $this->error('分类更新失败！');
+        }
+        if($this->objmodel->save($data,['id' => $data['id']])){
+            $this->success('分类更新成功！');
+        }
+        $this->error('分类更新失败！');
     }
 }

@@ -16,7 +16,7 @@
 				<select name="parent_id" class="select">
 					<option value="0">一级分类</option>
 					{volist name="categorys" id="category"}
-					<option value="{$category.id}" {if $category.id == $categoryValue.parent_id}selected="selected"{/if} value="{$category.id}">--{$category.name .'+'.$category.id}</option>
+					<option value="{$category.id}" {if $category.id == $categoryValue.parent_id}selected="selected"{/if} value="{$category.id}">--{$category.name}</option>
 					{/volist}
 				</select>
 				</span>
@@ -24,6 +24,7 @@
 		</div>
 		
 		<div class="row cl">
+			<input type="hidden" name="id" value="{$categoryValue.id}">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
 				

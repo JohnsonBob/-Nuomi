@@ -50,7 +50,7 @@ class Category extends Model
         $order = [
             'id' => 'desc',
         ];
-        $result = $this->where($data)->order($order)->paginate(2);
+        $result = $this->where($data)->order($order)->paginate();
        // echo $this->getLastSql();
         return $result;
     }
